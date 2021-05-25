@@ -32,9 +32,6 @@ router.get('/:id/edit', (req, res) => {
       res.render('edit', { record, categories })
     })
     .catch(error => console.log(error))
-
-  //@資料的編輯頁
-  //partial template "edit"
 })
 
 router.put('/:id', (req, res) => {

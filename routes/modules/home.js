@@ -14,12 +14,19 @@ Category.find()
 
 // 定義首頁路由
 router.get('/', (req, res) => {
+  const filter = req.query.filter || ''
   Record.find()
     .lean()
     .sort({ date: 'desc' })
     .then(records => {
-      const totalAmount = getTotalAmount(records)
-      res.render('index', { records, categories, totalAmount })
+      const recordList = []
+      if (filter === '') {
+        recordList.push(...records)
+      } else {
+        recordList.push(...records.filter(record => { return record.category === filter }))
+      }
+      const totalAmount = getTotalAmount(recordList)
+      res.render('index', { recordList, categories, totalAmount, filter })
     })
 })
 // 匯出路由模組
