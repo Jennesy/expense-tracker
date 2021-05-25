@@ -19,6 +19,9 @@ app.engine('hbs', exphbs({
     getIcon(category) {
       const categories = getIconList()
       return categories[category]
+    },
+    eq(a, b) {
+      return a === b
     }
   }
 }))

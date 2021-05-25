@@ -10,6 +10,7 @@ Category.find()
   .lean()
   .sort({ _id: 'asc' })
   .then(categoryList => { categoryList.forEach((item) => { categories.push(item) }) })
+  .catch(error => console.log(error))
 
 // 定義首頁路由
 router.get('/new', (req, res) => {
@@ -24,13 +25,31 @@ router.post('/', (req, res) => {
 })
 
 router.get('/:id/edit', (req, res) => {
+  const id = req.params.id
+  return Record.findById(id)
+    .lean()
+    .then(record => {
+      res.render('edit', { record, categories })
+    })
+    .catch(error => console.log(error))
+
   //@資料的編輯頁
   //partial template "edit"
 })
 
 router.put('/:id', (req, res) => {
-  //儲存修改資料
-  //redirect
+  const id = req.params.id
+  const { name, date, category, amount } = req.body
+  return Record.findById(id)
+    .then(record => {
+      record.name = name
+      record.date = date
+      record.category = category
+      record.amount = amount
+      return record.save()
+    })
+    .then(() => res.redirect(`/`))
+    .catch(error => console.log(error))
 })
 
 router.delete('/:id', (req, res) => {
