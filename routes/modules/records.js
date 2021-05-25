@@ -5,15 +5,22 @@ const router = express.Router()
 const Category = require('../../models/category')
 const Record = require('../../models/record')
 
+const categories = []
+Category.find()
+  .lean()
+  .sort({ _id: 'asc' })
+  .then(categoryList => { categoryList.forEach((item) => { categories.push(item) }) })
+
 // 定義首頁路由
 router.get('/new', (req, res) => {
-  //@新增資料頁面
-  //partial template "new"
+  res.render('new', { categories })
 })
 
 router.post('/', (req, res) => {
-  //新增資料到資料庫
-  //redirect
+  const { name, date, category, amount } = req.body
+  return Record.create({ name, date, category, amount })
+    .then(() => { res.redirect('/') })
+    .catch(error => console.log(error))
 })
 
 router.get('/:id/edit', (req, res) => {
