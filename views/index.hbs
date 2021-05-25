@@ -1,0 +1,54 @@
+<!-- filter -->
+<div class="row justify-content-center my-3">
+  <div class="col col-md-10 col-lg-8">
+    <form action="/" method="GET" class="w-100">
+      <select class="form-control" name="filter" onchange="submit()">
+        <option value="全部類別">--全部類別--</option>
+        {{#each categories}}
+        <option value="{{ this.name }}">{{ this.name }}</option>
+        {{/each}}
+      </select>
+    </form>
+  </div>
+</div>
+
+<!-- total amount -->
+<div class="row justify-content-center my-5">
+  <div class="col col-md-8 col-lg-6">
+    <div class="row justify-content-center">
+      <h5 class="col-3 font-weight-bold text-muted text-right">總金額</h5>
+      <div class="col font-weight-bold text-danger" style="font-size:6rem">{{ totalAmount }}</div>
+    </div>
+  </div>
+</div>
+
+<!-- receipt -->
+<div class="row justify-content-center my-3">
+  {{#each records}}
+  <div class="col-12 col-md-10 col-lg-8 row border-bottom py-3">
+    <div class="col-2 text-center" style="font-size:2.5rem;"><i class="{{getIcon this.category}}"></i></div>
+    <div class="col d-flex flex-column">
+      <div class="p-2 flex-grow-1" style="font-size:1.5rem;">{{ this.name }}</div>
+      <div class="pl-2">{{ this.date }}</div>
+    </div>
+    <div class="col-3 d-flex flex-column">
+      <div class="p-2 flex-grow-1" style="font-size:1.5rem;">{{ this.amount }}</div>
+      <div class="d-flex justify-content-end pr-2">
+        <a href="/records/{{this._id}}/edit" class="text-primary">
+          <i class="fas fa-edit mx-2"></i>
+        </a>
+        <a type="button" data-bs-toggle="modal" data-bs-target="#deleteModal{{this._id}}" class="text-danger">
+          <i class="fas fa-trash-alt"></i>
+        </a>
+      </div>
+    </div>
+  </div>
+  {{/each}}
+</div>
+<div class="fixed-bottom d-flex justify-content-end">
+  <a href="/records/new"
+    class="btn btn-success rounded-circle d-flex justify-content-center align-items-center mr-5 mb-3 shadow"
+    style="width:3rem;height:3rem">
+    <span><i class="fas fa-plus"></i></span>
+  </a>
+</div>

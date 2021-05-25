@@ -7,11 +7,10 @@ const recordSchema = new Schema({
   },
   category: {
     type: String,
-    default: Date.now
+    default: "其他"
   },
   date: {
-    type: Date,
-    default: "其他"
+    type: String
   },
   amount: {
     type: Number,

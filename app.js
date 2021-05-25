@@ -4,6 +4,7 @@ const bodyParser = require('body-parser')
 const methodOverride = require('method-override')
 require('./config/mongoose')
 const routes = require('./routes')
+const getIconList = require('./models/getIconList')
 
 const port = process.env.PORT || 3000
 const app = express()
@@ -12,7 +13,15 @@ app.use(bodyParser.urlencoded({ extended: true }))
 app.use(methodOverride('_method'))
 
 // set template engine
-app.engine('hbs', exphbs({ defaultLayout: 'main', extname: '.hbs' }))
+app.engine('hbs', exphbs({
+  defaultLayout: 'main', extname: '.hbs',
+  helpers: {
+    getIcon(category) {
+      const categories = getIconList()
+      return categories[category]
+    }
+  }
+}))
 app.set('view engine', 'hbs')
 
 app.use(routes)
