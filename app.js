@@ -1,13 +1,16 @@
 const express = require('express')
 const exphbs = require('express-handlebars')
 const bodyParser = require('body-parser')
+if (process.env.NODE_ENV !== 'production') {
+  require('dotenv').config()
+}
 const methodOverride = require('method-override')
 require('./config/mongoose')
 const routes = require('./routes')
 const getCategories = require('./models/getCategories')// [ { category1 }, { category2 }, ...]
 const getIconList = require('./models/getIconList') // { categoryName: iconClass }
 
-const port = process.env.PORT || 3000
+const port = process.env.PORT
 const app = express()
 
 app.use(bodyParser.urlencoded({ extended: true }))
