@@ -1,10 +1,8 @@
-// 引用 Express 與 Express 路由器
 const express = require('express')
 const router = express.Router()
-// 引用 model
+const bcrypt = require('bcryptjs')
 const User = require('../../models/user')
 
-// 定義首頁路由
 router.get('/login', (req, res) => {
   res.render('login')
 })
@@ -22,7 +20,12 @@ router.post('/register', (req, res) => {
         console.log('User already exists.')
         res.render('register', { name, email, password, confirmPassword })
       }
-      User.create({ name, email, password, confirmPassword })
+      bcrypt
+        .genSalt(10)
+        .then(salt => { return bcrypt.hash(password, salt) })
+        .then(hash => {
+          User.create({ name, email, password: hash })
+        })
         .then(() => res.redirect('/'))
         .catch(err => console.log(err))
     })
