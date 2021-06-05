@@ -2,19 +2,12 @@
 const express = require('express')
 const router = express.Router()
 // 引用 model
-const Category = require('../../models/category')
 const Record = require('../../models/record')
 
-const categories = []
-Category.find()
-  .lean()
-  .sort({ _id: 'asc' })
-  .then(categoryList => { categoryList.forEach((item) => { categories.push(item) }) })
-  .catch(error => console.log(error))
 
 // 定義首頁路由
 router.get('/new', (req, res) => {
-  res.render('new', { categories })
+  res.render('new')
 })
 
 router.post('/', (req, res) => {
@@ -29,7 +22,7 @@ router.get('/:id/edit', (req, res) => {
   return Record.findById(id)
     .lean()
     .then(record => {
-      res.render('edit', { record, categories })
+      res.render('edit', { record })
     })
     .catch(error => console.log(error))
 })
