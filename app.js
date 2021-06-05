@@ -17,7 +17,6 @@ app.use(bodyParser.urlencoded({ extended: true }))
 app.use(methodOverride('_method'))
 app.use(async (req, res, next) => {
   res.locals.categories = await getCategories()
-  console.log(res.locals.categories)
   Object.defineProperty(global, "icon", {
     value: await getIconList()
   })
