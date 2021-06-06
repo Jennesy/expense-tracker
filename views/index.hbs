@@ -1,17 +1,25 @@
 <!-- filter -->
-<div class="row justify-content-center my-3">
-  <div class="col col-md-10 col-lg-8">
-    <form action="/" method="GET" class="w-100">
-      <select class="form-control" name="filter" onchange="submit()">
-        <option value="" {{#if (eq "" ../filter)}}selected="selected" {{/if}}>--全部類別--</option>
-        {{#each categories}}
-        <option value="{{ this.name }}" {{#if (eq this.name ../filter)}}selected="selected" {{/if}}>{{ this.name }}
-        </option>
-        {{/each}}
-      </select>
-    </form>
+<form action="/" method="GET" class="row justify-content-center my-3">
+  <div class="col col-md-10 col-lg-8 mb-3">
+    {{> message}}
+    <select class="form-control" name="filter" onchange="submit()">
+      <option value="" {{#if (eq "" ../filter)}}selected="selected" {{/if}}>--全部類別--</option>
+      {{#each categories}}
+      <option value="{{ this.name }}" {{#if (eq this.name ../filter)}}selected="selected" {{/if}}>{{ this.name }}
+      </option>
+      {{/each}}
+    </select>
   </div>
-</div>
+  <div class="col col-md-10 col-lg-8">
+    <div action="/" class="form-inline justify-content-center align-items-center">
+      <input type="date" name="startDate" class="form-control" {{#if startDate}}value="{{startDate}}" {{/if}}>
+      <div class="mx-3">至</div>
+      <input type="date" name="endDate" class="form-control" {{#if endDate}}value="{{endDate}}" {{/if}}>
+      <button type="submit" class="btn btn-outline-secondary mx-3">送出</button>
+      <button type="submit" class="btn btn-outline-secondary" name="allDate" value="true">取消</button>
+    </div>
+  </div>
+</form>
 
 <!-- total amount -->
 <div class="row justify-content-center my-5">
