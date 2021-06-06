@@ -28,6 +28,7 @@ app.use(async (req, res, next) => {
   Object.defineProperty(global, "icon", {
     value: await getIconList()
   })
+  res.locals.isAuthenticated = req.isAuthenticated()
   next()
 })
 // set template engine
