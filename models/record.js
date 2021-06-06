@@ -10,6 +10,10 @@ const recordSchema = new Schema({
     default: "其他"
   },
   date: {
+    type: Date,
+    default: Date.now
+  },
+  merchant: {
     type: String
   },
   amount: {
