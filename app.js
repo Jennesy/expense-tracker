@@ -29,6 +29,7 @@ app.use(async (req, res, next) => {
     value: await getIconList()
   })
   res.locals.isAuthenticated = req.isAuthenticated()
+  res.locals.user = req.user
   next()
 })
 // set template engine
