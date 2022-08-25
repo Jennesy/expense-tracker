@@ -13,8 +13,8 @@
           <input type="password" id="password" name="password" class="form-control" placeholder="Enter Password">
         </div>
         <div class="d-grid gap-2">
-          <button type="submit" class="btn btn-primary">Login</button>
-          <a href="/auth/facebook" class="btn btn-info">Facebook</a>
+          <button type="submit" class="btn btn-primary" data-click-disabled="disabled" data-disabled-group="true">Login</button>
+          <a href="/auth/facebook" class="btn btn-info" data-click-disabled="disabled" data-disabled-group="true">Facebook</a>
         </div>
       </form>
       <p class="lead mt-4">
@@ -23,3 +23,4 @@
     </div>
   </div>
 </div>
+<script src="/js/preventDuplicateRequests.js"></script>

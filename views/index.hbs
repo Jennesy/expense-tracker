@@ -17,8 +17,8 @@
       <input type="date" name="endDate" class="form-control" id="endDate" {{#if endDate}}value="{{endDate}}" {{/if}}>
     </div>
     <div class="d-flex justify-content-center">
-      <button type="submit" class="btn btn-outline-success mx-3">送出</button>
-      <button type="submit" class="btn btn-outline-secondary" name="allDate" value="true">清除</button>
+      <button type="submit" class="btn btn-outline-success mx-3"  data-click-disabled="pointerEvents" data-disabled-group="true">送出</button>
+      <button type="submit" class="btn btn-outline-secondary" name="allDate" value="true"  data-click-disabled="pointerEvents" data-disabled-group="true">清除</button>
     </div>
   </div>
 </form>
@@ -93,3 +93,4 @@
   style="width:3rem;height:3rem;right:1rem;bottom:1rem;">
   <span><i class="fas fa-plus"></i></span>
 </a>
+<script src="/js/preventDuplicateRequests.js"></script>
