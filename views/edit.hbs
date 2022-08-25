@@ -2,20 +2,21 @@
 <div class="row justify-content-center my-3">
   <div class="col-12 col-md-10 col-lg-8">
     <form action="/records/{{ record._id }}?_method=PUT" method="post">
-      <div class="form-group row">
+      <div class="mb-3 row">
         <label for="name" class="col-sm-2 col-form-label">名稱</label>
         <div class="col-sm-10">
           <input type="text" name="name" value="{{ record.name }}" class="form-control" id="name" required>
         </div>
       </div>
-      <div class="form-group row">
+      <div class="mb-3 row">
         <label for="date" class="col-sm-2 col-form-label">日期</label>
         <div class="col-sm-10">
           <input type="date" name="date" value="{{toString record.date}}" class="form-control" id="date" required>
         </div>
       </div>
-      <fieldset class="form-group row">
-        <legend class="col-form-label col-sm-2 float-sm-left pt-0" for="exampleFormControlSelect1">類別</legend>
+			<script defer src='/js/dateRecord.js'></script>
+      <fieldset class="mb-3 row">
+        <legend class="col-form-label col-sm-2" for="exampleFormControlSelect1">類別</legend>
         <div class="col-sm-10">
           <select name="category" class=" form-control" id="category" required>
             {{#each categories}}
@@ -26,20 +27,20 @@
           </select>
         </div>
       </fieldset>
-      <div class="form-group row">
+      <div class="mb-3 row">
         <label for="merchant" class="col-sm-2 col-form-label">店家</label>
         <div class="col-sm-10">
           <input type="text" name="merchant" value="{{ record.merchant }}" class="form-control" id="merchant">
         </div>
       </div>
-      <div class="form-group row">
+      <div class="mb-3 row">
         <label for="amount" class="col-sm-2 col-form-label">金額</label>
         <div class="col-sm-10">
           <input type="number" name="amount" value="{{ record.amount }}" class="form-control" id="amount" min="1"
             required>
         </div>
       </div>
-      <div class="form-group row justify-content-center mt-5">
+      <div class="mb-3 row justify-content-center mt-5">
         <div class="col-sm-10 text-center">
           <button type="submit" class="btn btn-primary">儲存修改</button>
         </div>

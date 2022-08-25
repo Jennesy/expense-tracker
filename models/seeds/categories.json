@@ -1,24 +1,29 @@
 {
-  "results": [
-    {
-      "name": "家居物業",
-      "icon": "fas fa-home"
-    },
-    {
-      "name": "交通出行",
-      "icon": "fas fa-shuttle-van"
-    },
-    {
-      "name": "休閒娛樂",
-      "icon": "fas fa-grin-beam"
-    },
-    {
-      "name": "餐飲食品",
-      "icon": "fas fa-utensils"
-    },
-    {
-      "name": "其他",
-      "icon": "fas fa-pen"
-    }
-  ]
+	"results": [
+		{
+			"name": "家居物業",
+			"icon": "fa-solid fa-chair",
+			"color": "#98DDCA"
+		},
+		{
+			"name": "交通出行",
+			"icon": "fa-solid fa-plane",
+			"color": "#D5ECC2"
+		},
+		{
+			"name": "休閒娛樂",
+			"icon": "fa-solid fa-guitar",
+			"color": "#FFD3B4"
+		},
+		{
+			"name": "餐飲食品",
+			"icon": "fa-solid fa-burger",
+			"color": "#FFAAA7"
+		},
+		{
+			"name": "其他",
+			"icon": "fa-solid fa-shapes",
+			"color": "#bbbbbb"
+		}
+	]
 }

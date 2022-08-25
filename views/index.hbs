@@ -1,6 +1,6 @@
 <!-- filter -->
-<form action="/" method="GET" class="row justify-content-center my-3">
-  <div class="col col-md-10 col-lg-8 mb-3">
+<form action="/" method="GET" class="row justify-content-center gap-3 mt-3 mb-5">
+  <div class="col-12">
     {{> message}}
     <select class="form-control" name="filter" onchange="submit()">
       <option value="" {{#if (eq "" ../filter)}}selected="selected" {{/if}}>--全部類別--</option>
@@ -10,36 +10,51 @@
       {{/each}}
     </select>
   </div>
-  <div class="col col-md-10 col-lg-8">
-    <div action="/" class="form-inline justify-content-center align-items-center">
-      <input type="date" name="startDate" class="form-control" {{#if startDate}}value="{{startDate}}" {{/if}}>
+  <div class="col-12 d-flex flex-wrap justify-content-end align-items-center gap-3">
+    <div class="flex-grow-1 d-flex align-items-center p-0">
+      <input type="date" name="startDate" class="form-control" id="startDate" {{#if startDate}}value="{{startDate}}" {{/if}}>
       <div class="mx-3">至</div>
-      <input type="date" name="endDate" class="form-control" {{#if endDate}}value="{{endDate}}" {{/if}}>
+      <input type="date" name="endDate" class="form-control" id="endDate" {{#if endDate}}value="{{endDate}}" {{/if}}>
+    </div>
+    <div class="d-flex justify-content-center">
       <button type="submit" class="btn btn-outline-success mx-3">送出</button>
       <button type="submit" class="btn btn-outline-secondary" name="allDate" value="true">清除</button>
     </div>
   </div>
 </form>
+<script defer src="/js/dateFilter.js"></script>
 
 <!-- total amount -->
-<div class="row justify-content-center my-5">
-  <div class="col col-md-8 col-lg-6">
-    <div class="row justify-content-center">
-      <h5 class="col-3 font-weight-bold text-muted text-right">總金額</h5>
-      <div class="col font-weight-bold text-danger" style="font-size:6rem">{{ totalAmount }}</div>
-    </div>
+<div class="d-flex justify-content-center align-item-center mb-5">
+  <div class="d-flex flex-column mx-auto">
+      <h6 class="d-inline-block font-weight-bold text-muted text-right">{{#unless (eq "" filter)}}({{ filter }}) {{/unless}}總金額</h6>
+      <div class="d-inline-block font-weight-bold text-danger text-center" style="font-size:6rem;line-height:6rem;">{{ totalAmount }}</div>
   </div>
 </div>
 
+<!-- chart canvas -->
+{{#if (eq "" filter)}}
+<div class="row justify-content-center mb-5">
+  <div class="col-12 col-sm-8 col-lg-6 " style="max-width:400px">
+    <canvas id="pieChart" data-percentage="{{percentage}}"></canvas>
+  </div>
+</div>
+<script defer src="/js/chart.js"></script>
+{{/if}}
+
+
 <!-- receipt -->
-<div class="row justify-content-center my-3">
+<div class="col-12 col-md-10 col-lg-8 mx-auto mb-3 p-3 border rounded">
   {{#each recordList}}
-  <div class="col-12 col-md-10 col-lg-8 row border-bottom py-3">
-    <div class="col-2 d-flex justify-content-center"><i class="{{getIcon this.category}} fa-3x align-self-center"></i>
-    </div>
-    <div class="col d-flex flex-column">
-      <div class="p-2 flex-grow-1" style="font-size:1.5rem;">{{ this.name }}</div>
-      <div class="pl-2">{{toString this.date}}</div>
+  <div class="row border-bottom py-3" style="margin-inline:auto">
+    <div class="col d-flex">
+      <div style="width: 1.5rem">
+        <i class="{{getIcon this.category}} align-self-center pt-2" style="font-size: 1.3rem;line-height:36px"></i>
+      </div>
+      <div>
+        <div class="p-2" style="font-size:1.5rem;">{{ this.name }}</div>
+        <div class="ps-2">{{toString this.date}}</div>
+      </div>
     </div>
     <div class="col-3 d-flex flex-column">
       <div class="p-2 flex-grow-1" style="font-size:1.5rem;">{{ this.amount }}</div>
@@ -47,7 +62,7 @@
         <a href="/records/{{ this._id }}/edit" class="text-primary">
           <i class="fas fa-edit mx-2"></i>
         </a>
-        <a type="button" data-toggle="modal" data-target="#deleteModal{{ this._id }}" class="text-danger">
+        <a type="button" data-bs-toggle="modal" data-bs-target="#deleteModal{{ this._id }}" class="text-danger">
           <i class="fas fa-trash-alt"></i>
         </a>
       </div>
@@ -56,14 +71,14 @@
   <!-- Modal -->
   <div class="modal fade" id="deleteModal{{ this._id }}" tabindex="-1" aria-labelledby="deleteModalLabel"
     aria-hidden="true">
-    <div class="modal-dialog">
+    <div class="modal-dialog modal-dialog-centered">
       <div class="modal-content">
         <div class="modal-body text-center mt-1">
           <i class="fas fa-exclamation-triangle fa-2x pb-4 text-danger"></i><br>
-          確定刪除 <b class="text-primary">[ {{this.date}} ] {{this.name}} NT${{this.amount}}</b> 這筆支出嗎？
+          確定刪除 <b class="text-primary">[ {{toString this.date}} ] {{this.name}} NT${{this.amount}}</b> 這筆支出嗎？
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-dismiss="modal">取消</button>
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">取消</button>
           <form action="/records/{{ this._id }}?_method=DELETE" method="POST">
             <button type="submit" class="btn btn-danger">刪除</button>
           </form>
@@ -73,10 +88,8 @@
   </div>
   {{/each}}
 </div>
-<div class="fixed-bottom d-flex justify-content-end">
-  <a href="/records/new"
-    class="btn btn-success rounded-circle d-flex justify-content-center align-items-center mr-5 mb-3 shadow"
-    style="width:3rem;height:3rem">
-    <span><i class="fas fa-plus"></i></span>
-  </a>
-</div>
+<a href="/records/new"
+  class=" btn btn-success rounded-circle d-flex justify-content-center align-items-center mr-5 mb-3 shadow position-fixed"
+  style="width:3rem;height:3rem;right:1rem;bottom:1rem;">
+  <span><i class="fas fa-plus"></i></span>
+</a>

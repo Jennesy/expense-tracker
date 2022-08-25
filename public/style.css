@@ -1,0 +1,9 @@
+*,
+*::before,
+*::after {
+	font-family: 'Noto Sans TC', sans-serif;
+}
+.fas::before,
+.fa-solid::before {
+	font-family: fontAwesome;
+}
